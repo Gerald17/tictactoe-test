@@ -1,7 +1,77 @@
+body{
+  background-color: #004b89;
+}
+.game-title{
+  font-size: 18px;
+  color: white;
+}
 .game-grid {
   width: 300px;
   height: 300px;
   padding: 0;
   margin: 0 auto;
+  text-align: center;
+}
+.row{
+  font-size: 0px;
+}
+.grid-item{
+  position: relative;
+  width: 100px;  
+  height: 100px;               
+  text-align: center;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.figure-o{
+  width: 48px;
+  height: 48px;
+  border: solid 12px white;
+  border-radius: 50%;
+  text-align: center;
+}
+.figure-x::after, .figure-x::before{
+  content: "";
+  width: 70px;
+  height: 12px;
+  background-color: white;
+  display: block;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.figure-x::after{  
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.figure-x::before{
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.turn{
+  font-size: 15px;
+  color: #efec77;
+}
+.score-board{
+  background-color: #27245f;
+}
+/*helpers*/
+.centered{  
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.text-center{
   text-align: center;
 }
