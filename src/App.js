@@ -4,6 +4,19 @@ import GridItem from './components/grid_item';
 import './App.css';
 
 class App extends Component {
+  state = {
+    currentPlayer: 'playerOne',
+    playerOneMoves: [],
+    playerTwoMoves: []
+  }
+
+    handlePlayerMove = (e, i) => {
+      let figure = (this.state.currentPlayer === 'playerOne' ? 'figure-o' : 'figure-x');
+      e.target.children[0].className = figure;
+      this.setState({
+        currentPlayer: (this.state.currentPlayer === 'playerOne' ? 'playerTwo' : 'playerOne')
+      });
+    }
 
     // Create items dynamically to generate NxN board sizes
     drawItems = (blocks) => {
@@ -15,7 +28,8 @@ class App extends Component {
         for (let i = 0; i < blocks; i++) {
           items.push(
             <GridItem 
-              key={ `${r}${i}`} 
+              key={ `${r}${i}`}
+              handlePlayerMove={ this.handlePlayerMove }
               figure=""/>
             );
         };
