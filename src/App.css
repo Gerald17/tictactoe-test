@@ -1,31 +1,66 @@
 body{
-  background-color: #004b89;
+  background-color: #0F1630;
+}
+.help{
+  background-color: #76BAF2;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 2px white;
+}
+.help-icon{
+  font-size: 25px;
+  padding: 8px 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0px;
 }
 .game-title{
-  font-size: 18px;
+  font-size: 25px;
   color: white;
 }
-.game-grid {
+.container{
   width: 300px;
-  height: 300px;
+  margin: 0 auto;
+}
+.game-grid {
   padding: 0;
   margin: 0 auto;
-  text-align: center;
+  border: 2px solid white;
+  box-sizing: border-box;
 }
 .row{
   font-size: 0px;
+  border-bottom: 2px solid white;
+  box-sizing: border-box;
+}
+.game-grid .row:last-child{
+  border-bottom: none;
 }
 .grid-item{
   position: relative;
-  width: 100px;  
-  height: 100px;               
+  width: 98px;  
+  height: 98px;               
   text-align: center;
   display: inline-block;
   box-sizing: border-box;
+  border-right: 2px solid white;
+}
+.row .grid-item:last-child {
+  border-right: none;
 }
 .figure-o{
   width: 48px;
   height: 48px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   border: solid 12px white;
   border-radius: 50%;
   text-align: center;
@@ -59,19 +94,51 @@ body{
 .turn{
   font-size: 15px;
   color: #efec77;
+  margin-bottom: 20px;
 }
 .score-board{
-  background-color: #27245f;
+  background-color: #102249;
+  font-size: 0;
+  padding: 40px;
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.player-info{    
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+.player-shape .grid-item{
+  border: none;
+}
+.player-name{    
+  font-size: 22px;
+  color: white;
+  margin: 0;
+  padding-top: 10px;
+}
+.player-score{
+  font-size: 15px;
+  color: white;
+  margin: 0;
+}
+
+.restart{    
+  padding: 20px 0px 20px 0px;
+  width: 100%;
+  color: white;
+  border: solid 3px white;
+  text-align: center;
+  background-color: #76BAF2;
+  font-size: 33px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 /*helpers*/
-.centered{  
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
 .text-center{
   text-align: center;
 }
