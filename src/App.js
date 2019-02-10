@@ -20,6 +20,25 @@ class App extends Component {
     }
   }
 
+    //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
+    sum = (cell1, cell2, cell3) => {
+      return cell1 + cell2 + cell3;
+    }
+
+    // check if someone wins the game
+    isWinner = () => {
+      const { gameMoves, boardSize, playerOneTurn } = this.state;
+      for (let r = 0; r < boardSize; r++) {
+        const sum = this.sum(gameMoves[r][0], gameMoves[r][1], gameMoves[r][2])
+        console.warn(sum);
+        if (sum === 3 || sum === 6) {
+          return sum;
+        }
+      }
+      return 0;
+    }
+
+
     // Sets the figure for the current player and set the next turn
     handlePlayerMove = (event,coordx,coordy) => { 
       let playerOneTurn = this.state.playerOneTurn;
@@ -63,9 +82,19 @@ class App extends Component {
     }
 
     render() {
-      console.log(this.state.gameMoves)
+      let winnerMessage;
+      let hasWinner = this.isWinner();
+
+      if (hasWinner) {
+        winnerMessage = <h1>HAS GANADO</h1>;
+      } else {
+        winnerMessage = null;
+      }
+
     return (
       <React.Fragment>
+        
+        { winnerMessage }
 
         <div className="help">
           <p className="help-icon">?</p>
