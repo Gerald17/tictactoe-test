@@ -48,6 +48,10 @@ body{
   display: inline-block;
   box-sizing: border-box;
   border-right: 2px solid white;
+  cursor: pointer;
+}
+.grid-item:hover{
+  background-color: #090f24;
 }
 .row .grid-item:last-child {
   border-right: none;
@@ -139,6 +143,46 @@ body{
   box-sizing: border-box;
 }
 /*helpers*/
+.disable{
+  pointer-events: none;
+}
 .text-center{
   text-align: center;
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+.flash {
+  -webkit-animation-name: flash;
+  animation-name: flash;
 }

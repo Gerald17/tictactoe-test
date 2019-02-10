@@ -3,19 +3,41 @@ import React, { Component } from 'react';
 import GridItem from './components/grid_item';
 import './App.css';
 
-class App extends Component {
-  state = {
-    currentPlayer: 'playerOne',
-    playerOneMoves: [],
-    playerTwoMoves: []
+class App extends Component {  
+  constructor (props) {
+    super(props)
+    this.state = {
+      boardSize: 3,
+      playerOneTurn: true,
+      isWinner: false,
+      gameMoves: [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0]
+      ],
+      playerOneScore: 0,
+      playerTwoScore: 0
+    }
   }
 
-    handlePlayerMove = (e, i) => {
-      let figure = (this.state.currentPlayer === 'playerOne' ? 'figure-o' : 'figure-x');
-      e.target.children[0].className = figure;
+    // Sets the figure for the current player and set the next turn
+    handlePlayerMove = (event,coordx,coordy) => { 
+      let playerOneTurn = this.state.playerOneTurn;
+      let move = playerOneTurn === true ? 1 : 2;
+
+      //assign the 'X' or 'O' on the clicked cell
+      let figure = playerOneTurn === true ? 'figure-o' : 'figure-x';
+      event.target.className = 'grid-item disable';
+      event.target.children[0].className = `${figure} animated flash`;
+
+      //update the gameboard move
+      let newMove = JSON.parse(JSON.stringify(this.state.gameMoves));
+      newMove[coordx][coordy] = move;
+
       this.setState({
-        currentPlayer: (this.state.currentPlayer === 'playerOne' ? 'playerTwo' : 'playerOne')
-      });
+        playerOneTurn: !playerOneTurn,
+        gameMoves: newMove
+      })
     }
 
     // Create items dynamically to generate NxN board sizes
@@ -28,6 +50,8 @@ class App extends Component {
         for (let i = 0; i < blocks; i++) {
           items.push(
             <GridItem 
+              coordx={r} // helps to update the move on the game board
+              coordy={i}
               key={ `${r}${i}`}
               handlePlayerMove={ this.handlePlayerMove }
               figure=""/>
@@ -39,8 +63,7 @@ class App extends Component {
     }
 
     render() {
-    const blocks = 3;    
-
+      console.log(this.state.gameMoves)
     return (
       <React.Fragment>
 
@@ -54,7 +77,7 @@ class App extends Component {
         {/* Game grid */}
         <div className="container">
           <div className="game-grid text-center">
-            { this.drawItems(blocks) }
+            { this.drawItems(this.state.boardSize) }
           </div>
           <div className="restart">RESTART</div>
         </div>

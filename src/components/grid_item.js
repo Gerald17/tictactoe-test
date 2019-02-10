@@ -3,8 +3,8 @@ import '../App.css';
 
 const GridItem = props => {
   return (       
-    <div className="grid-item" onClick={ props.handlePlayerMove }>
-      <div className={ `${props.figure}` }></div>
+    <div className="grid-item" onClick={ (e) => props.handlePlayerMove(e, props.coordx,  props.coordy) }>
+      <div className={ `${props.figure}` } ></div>
     </div>    
   );
 }
