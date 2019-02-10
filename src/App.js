@@ -22,20 +22,34 @@ class App extends Component {
 
     //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
     sum = (cell1, cell2, cell3) => {
-      return cell1 + cell2 + cell3;
+      if(cell1 === cell2 && cell1 === cell3){
+        return cell1 + cell2 + cell3;
+      }
+      return 0;
     }
 
     // check if someone wins the game
     isWinner = () => {
       const { gameMoves, boardSize, playerOneTurn } = this.state;
+
+      // check for rows
       for (let r = 0; r < boardSize; r++) {
         const sum = this.sum(gameMoves[r][0], gameMoves[r][1], gameMoves[r][2])
-        console.warn(sum);
         if (sum === 3 || sum === 6) {
-          return sum;
+          return true;
         }
       }
-      return 0;
+
+      // check for columns
+      for (let r = 0; r < boardSize; r++) {
+        const sum = this.sum(gameMoves[0][r], gameMoves[1][r], gameMoves[2][r])
+        if (sum === 3 || sum === 6) {
+          return true;
+        }
+      }
+
+
+      return false;
     }
 
 
@@ -85,15 +99,15 @@ class App extends Component {
       let winnerMessage;
       let hasWinner = this.isWinner();
 
-      if (hasWinner) {
-        winnerMessage = <h1>HAS GANADO</h1>;
+      if (hasWinner === true) {
+        winnerMessage = <h1 className='animated flash'>HAS GANADO</h1>;
       } else {
         winnerMessage = null;
       }
 
     return (
       <React.Fragment>
-        
+
         { winnerMessage }
 
         <div className="help">
@@ -118,7 +132,7 @@ class App extends Component {
               <GridItem figure="figure-o"/>
             </div>
             <h3 className="player-name">PLAYER 1</h3>
-            <h4 className="player-score">SCORE 3</h4>
+            <h4 className="player-score">SCORE { this.state.playerOneScore }</h4>
           </div>
           <div className="player-info">
             <div className="player-shape">
