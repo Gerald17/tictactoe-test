@@ -22,7 +22,7 @@ class App extends Component {
 
     //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
     sum = (cell1, cell2, cell3) => {
-      if(cell1 === cell2 && cell1 === cell3){
+      if(cell1 === cell2 && cell1 === cell3){ //make sure it has the same figure
         return cell1 + cell2 + cell3;
       }
       return 0;
@@ -47,6 +47,18 @@ class App extends Component {
           return true;
         }
       }
+
+      // check for diagonal one
+      const diagonalOne = this.sum(gameMoves[0][0], gameMoves[1][1], gameMoves[2][2])
+      if (diagonalOne === 3 || diagonalOne === 6) {
+        return true;
+      }
+
+      // check for diagonal Two
+      const diagonalTwo = this.sum(gameMoves[0][2], gameMoves[1][1], gameMoves[2][0])
+      if (diagonalTwo === 3 || diagonalTwo === 6) {
+        return true;
+      }      
 
 
       return false;
