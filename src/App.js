@@ -19,6 +19,13 @@ class App extends Component {
       playerTwoScore: 0
     }
   }
+   
+    // update player score
+    updateScore = () => {
+      this.setState({
+        playerOneScore: this.setState.playerOneScore + 1
+      })
+    }  
 
     //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
     sum = (cell1, cell2, cell3) => {
@@ -29,12 +36,12 @@ class App extends Component {
     }
 
     // check if someone wins the game
-    isWinner = () => {
-      const { gameMoves, boardSize, playerOneTurn } = this.state;
+    isWinner = (newMove) => {
+      const { boardSize } = this.state;
 
       // check for rows
       for (let r = 0; r < boardSize; r++) {
-        const sum = this.sum(gameMoves[r][0], gameMoves[r][1], gameMoves[r][2])
+        const sum = this.sum(newMove[r][0], newMove[r][1], newMove[r][2])
         if (sum === 3 || sum === 6) {
           return true;
         }
@@ -42,31 +49,29 @@ class App extends Component {
 
       // check for columns
       for (let r = 0; r < boardSize; r++) {
-        const sum = this.sum(gameMoves[0][r], gameMoves[1][r], gameMoves[2][r])
+        const sum = this.sum(newMove[0][r], newMove[1][r], newMove[2][r])
         if (sum === 3 || sum === 6) {
           return true;
         }
       }
 
       // check for diagonal one
-      const diagonalOne = this.sum(gameMoves[0][0], gameMoves[1][1], gameMoves[2][2])
+      const diagonalOne = this.sum(newMove[0][0], newMove[1][1], newMove[2][2])
       if (diagonalOne === 3 || diagonalOne === 6) {
         return true;
       }
 
       // check for diagonal Two
-      const diagonalTwo = this.sum(gameMoves[0][2], gameMoves[1][1], gameMoves[2][0])
+      const diagonalTwo = this.sum(newMove[0][2], newMove[1][1], newMove[2][0])
       if (diagonalTwo === 3 || diagonalTwo === 6) {
         return true;
-      }      
-
-
+      }
       return false;
     }
 
-
     // Sets the figure for the current player and set the next turn
     handlePlayerMove = (event,coordx,coordy) => { 
+
       let playerOneTurn = this.state.playerOneTurn;
       let move = playerOneTurn === true ? 1 : 2;
 
@@ -78,11 +83,16 @@ class App extends Component {
       //update the gameboard move
       let newMove = JSON.parse(JSON.stringify(this.state.gameMoves));
       newMove[coordx][coordy] = move;
+      
+      const isWinner = this.isWinner(newMove);
 
       this.setState({
         playerOneTurn: !playerOneTurn,
-        gameMoves: newMove
-      })
+        gameMoves: newMove,
+        isWinner: isWinner,
+        playerOneScore: playerOneTurn && isWinner ? this.state.playerOneScore + 1 : this.state.playerOneScore,
+        playerTwoScore: !playerOneTurn  && isWinner ? this.state.playerTwoScore + 1 : this.state.playerTwoScore
+      });
     }
 
     // Create items dynamically to generate NxN board sizes
@@ -108,26 +118,16 @@ class App extends Component {
     }
 
     render() {
-      let winnerMessage;
-      let hasWinner = this.isWinner();
-
-      if (hasWinner === true) {
-        winnerMessage = <h1 className='animated flash'>HAS GANADO</h1>;
-      } else {
-        winnerMessage = null;
-      }
-
+      const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
     return (
       <React.Fragment>
-
-        { winnerMessage }
 
         <div className="help">
           <p className="help-icon">?</p>
         </div>
 
         <h1 className="game-title text-center">TIC TAC TOE</h1>
-        <div className="turn text-center">TURN: PLAYER 1</div>
+        <div className="turn text-center">TURN: { playerOneTurn ? 'Player 1 (O)' : 'Player 2 (X)'}</div>
         
         {/* Game grid */}
         <div className="container">
@@ -136,6 +136,9 @@ class App extends Component {
           </div>
           <div className="restart">RESTART</div>
         </div>
+        
+
+        { isWinner ? <h1 className="winner-message">Ganador</h1> : null }
 
         {/* players info */}
         <div className="score-board">
@@ -144,14 +147,14 @@ class App extends Component {
               <GridItem figure="figure-o"/>
             </div>
             <h3 className="player-name">PLAYER 1</h3>
-            <h4 className="player-score">SCORE { this.state.playerOneScore }</h4>
+            <h4 className="player-score">SCORE { playerOneScore }</h4>
           </div>
           <div className="player-info">
             <div className="player-shape">
               <GridItem figure="figure-x"/>
             </div>
             <h3 className="player-name">PLAYER 2</h3>
-            <h4 className="player-score">SCORE 2</h4>
+            <h4 className="player-score">SCORE { playerTwoScore }</h4>
           </div>
         </div>
 

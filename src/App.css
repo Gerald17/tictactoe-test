@@ -119,6 +119,9 @@ body{
 .player-shape .grid-item{
   border: none;
 }
+.player-shape .grid-item:hover{
+  background: none;
+}
 .player-name{    
   font-size: 22px;
   color: white;
@@ -141,6 +144,11 @@ body{
   font-size: 33px;
   margin: 0 auto;
   box-sizing: border-box;
+}
+.winner-message{
+  text-align: center;
+  color: white;
+  font-size: 18px;
 }
 /*helpers*/
 .disable{
