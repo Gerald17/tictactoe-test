@@ -1,8 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+1. Clone or download the repository from github https://github.com/Gerald17/tictactoe-test.git
+2. In the project directory, you can run
+3. Run npm install
+4. 
+
+
 ## Available Scripts
 
-In the project directory, you can run:
+
 
 ### `npm start`
 
