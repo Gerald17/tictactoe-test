@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import GridItem from './components/grid_item';
 import PlayerInfo from './components/player_info';
 import Help from './components/help';
+import GameMessage from './components/game_message';
 
 class App extends Component {  
   constructor (props) {
@@ -188,11 +189,9 @@ class App extends Component {
         
         {/* Game grid */}
         <div className="container">
-        
             
-            { this.isDraw() === true ? <div className="win-draw-message"><h1 className="winner-message"> DRAW </h1></div> : null }
-            {  isWinner ? <div className="win-draw-message"><h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1></div> : null }
-
+          { this.isDraw() === true ? <GameMessage message="DRAW"/> : null }
+          { isWinner ? <GameMessage message={`PLAYER ${ playerOneTurn ? "TWO" : "ONE"}`  }/> : null }
 
           <div className="game-grid text-center">
             { this.drawItems(this.state.boardSize) }
