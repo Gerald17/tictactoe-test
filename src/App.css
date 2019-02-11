@@ -1,15 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree');
+/*#23234e*/
+html{
+  height: 100%;
+}
 body{
-  background-color: #0F1630;
+  background-position: center center;
+  padding: 0;
+  margin: 0;
+  font-family: 'Bai Jamjuree', sans-serif, Arial, Helvetica, sans-serif;
+  background: rgba(255,92,92,1);
+  background: -moz-linear-gradient(top, rgba(254,187,187,1) 0%, rgba(254,144,144,1) 45%, rgba(255,92,92,1) 100%); 
+  background: -webkit-linear-gradient(top, rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); 
+  background: linear-gradient(to bottom, rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 ); 
+
+}
+.overlay{  
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 .help{
-  background-color: #76BAF2;
+  border: solid 3px white;
   position: absolute;
   right: 20px;
   top: 20px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: solid 2px white;
+  border: solid 3px white;
+  -o-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+.help:hover{
+  background-color: #ff5252;
+  cursor: pointer;
 }
 .help-icon{
   font-size: 25px;
@@ -19,8 +48,8 @@ body{
   margin: 0px;
 }
 .game-title{
-  font-size: 25px;
-  color: white;
+  font-size: 40px;
+  color: #23234e;
 }
 .container{
   width: 300px;
@@ -31,6 +60,7 @@ body{
   margin: 0 auto;
   border: 2px solid white;
   box-sizing: border-box;
+  background-color: #23234e;
 }
 .row{
   font-size: 0px;
@@ -49,9 +79,13 @@ body{
   box-sizing: border-box;
   border-right: 2px solid white;
   cursor: pointer;
+  -o-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
 }
 .grid-item:hover{
-  background-color: #090f24;
+  background-color: #0c0629;
 }
 .row .grid-item:last-child {
   border-right: none;
@@ -97,16 +131,17 @@ body{
 }
 .turn{
   font-size: 15px;
-  color: #efec77;
+  color: white;
   margin-bottom: 20px;
+  width: 300px;
+  margin: 0 auto;
+  background-color: rgba(35, 35, 78, 0.6);
+  padding: 20px 0px;
 }
 .score-board{
-  background-color: #102249;
+  background-color: rgba(35, 35, 78, 0.6);
   font-size: 0;
-  padding: 40px;
-  display: block;
-  position: absolute;
-  bottom: 0px;
+  padding: 10px;
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -114,36 +149,88 @@ body{
 .player-info{    
   display: inline-block;
   width: 50%;
-  text-align: center;
+}
+.player-shape{
+  display: inline-block;
+}
+.player-shape .figure-x::after, .player-shape .figure-x::before{
+  width: 35px;
+  height: 5px;
+}
+.float-right{
+  float: right;
 }
 .player-shape .grid-item{
   border: none;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  cursor: default;
+}
+.player-shape .figure-o {
+  width: 20px;
+  height: 20px;
+  border-width: 5px;
+  font-size: 15px;
+  text-align: left;
+  vertical-align: middle;
 }
 .player-shape .grid-item:hover{
   background: none;
 }
 .player-name{    
-  font-size: 22px;
+  width: 50%;
+  font-size: 10px;
+  text-transform: uppercase;
   color: white;
   margin: 0;
-  padding-top: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.score-container{
+  background-color: #23234e;
+  padding: 5px 0px;
+  border-radius: 15px;
 }
 .player-score{
   font-size: 15px;
   color: white;
   margin: 0;
+  text-align: center;
+  display: inline-block;
+  width: 50%;
 }
-
+.score{
+  font-size: 26px;
+  color: white;
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  padding: 0px;
+  margin: 14px 0px;
+}
 .restart{    
-  padding: 20px 0px 20px 0px;
+  padding: 10px 0px 10px 0px;
   width: 100%;
   color: white;
   border: solid 3px white;
+  border-radius: 50px;
   text-align: center;
-  background-color: #76BAF2;
-  font-size: 33px;
+  font-size: 27px;
   margin: 0 auto;
   box-sizing: border-box;
+  margin-top: 20px;
+  -o-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+.restart:hover{  
+  background-color: #ff5252;
+  cursor: pointer;
+}
+.restart p{
+  margin: 0;  
 }
 .winner-message{
   text-align: center;
@@ -151,11 +238,26 @@ body{
   font-size: 18px;
 }
 /*helpers*/
+@media screen and (max-width: 480px){
+  html{
+    height: auto;
+  }
+  .game-title {
+    font-size: 30px;
+  }
+  .help{
+    right: 10px;
+    top: 20px;
+  }
+}
 .disable{
   pointer-events: none;
 }
 .text-center{
   text-align: center;
+}
+.text-right{
+  text-align: right;
 }
 .animated {
   -webkit-animation-duration: 1s;

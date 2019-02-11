@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import GridItem from './components/grid_item';
-import './App.css';
+import PlayerInfo from './components/player_info';
 
 class App extends Component {  
   constructor (props) {
@@ -17,15 +17,20 @@ class App extends Component {
       ],
       playerOneScore: 0,
       playerTwoScore: 0
-    }
+    }    
   }
    
-    // update player score
-    updateScore = () => {
+    // restar the current game
+    restarGame = () => {      
+      const resetGame = [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0]
+      ];
       this.setState({
-        playerOneScore: this.setState.playerOneScore + 1
+        gameMoves: resetGame
       })
-    }  
+    }
 
     //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
     sum = (cell1, cell2, cell3) => {
@@ -118,45 +123,45 @@ class App extends Component {
     }
 
     render() {
-      const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
+    const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
     return (
       <React.Fragment>
-
+        <div className="overlay"></div>
         <div className="help">
           <p className="help-icon">?</p>
         </div>
 
         <h1 className="game-title text-center">TIC TAC TOE</h1>
-        <div className="turn text-center">TURN: { playerOneTurn ? 'Player 1 (O)' : 'Player 2 (X)'}</div>
+        <div className="turn text-center">TURN: { playerOneTurn ? 'PLAYER 1 ' : 'PLAYER 2 '}</div>
         
         {/* Game grid */}
         <div className="container">
           <div className="game-grid text-center">
             { this.drawItems(this.state.boardSize) }
-          </div>
-          <div className="restart">RESTART</div>
-        </div>
-        
+          </div>      
 
-        { isWinner ? <h1 className="winner-message">Ganador</h1> : null }
+          {/* players info */}
+          
+          { isWinner ? <h1 className="winner-message">YOU WIN</h1> : null }
+          <div className="score-board"> 
+            <PlayerInfo
+              figure="figure-o"
+              name="PLAYER ONE"
+            />
+            <PlayerInfo
+              figure="figure-x"
+              name="PLAYER TWO"
+            />
+            <div className="score-container">
+              <h5 className="score">{ playerOneScore }</h5>
+              <h4 className="player-score">SCORE</h4>
+              <h5 className="score">{ playerTwoScore }</h5>
+            </div>
+          </div>
 
-        {/* players info */}
-        <div className="score-board">
-          <div className="player-info">
-            <div className="player-shape">
-              <GridItem figure="figure-o"/>
-            </div>
-            <h3 className="player-name">PLAYER 1</h3>
-            <h4 className="player-score">SCORE { playerOneScore }</h4>
-          </div>
-          <div className="player-info">
-            <div className="player-shape">
-              <GridItem figure="figure-x"/>
-            </div>
-            <h3 className="player-name">PLAYER 2</h3>
-            <h4 className="player-score">SCORE { playerTwoScore }</h4>
-          </div>
+          <div className="restart" onClick={ this.restarGame }><p>RESTART</p></div>
         </div>
+
 
       </React.Fragment>
     );
