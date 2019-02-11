@@ -80,8 +80,10 @@ class App extends Component {
     }
 
     // check if is a draw
-    isDraw = () => {      
+    isDraw = () => {
       const figures = document.getElementsByClassName("shape");
+      
+      const ref = React.createRef();
       if(figures.length === 9 && this.state.isWinner === false){
         return true
       }
@@ -191,10 +193,10 @@ class App extends Component {
         
         {/* Game grid */}
         <div className="container">
-          {isDraw || isWinner ? 
+          { isDraw || isWinner ? 
           <div className="win-draw-message">          
-            { isDraw ? <h1 className="winner-message"> DRAW </h1> : null}
-            { isWinner ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
+            { isDraw  && !isWinner ? <h1 className="winner-message"> DRAW </h1> : null}
+            { isWinner && !isDraw ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
           </div> : null
           }
           <div className="game-grid text-center">
