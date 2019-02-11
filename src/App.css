@@ -99,14 +99,14 @@ body{
   left: 0;
   right: 0;
   margin: auto;
-  border: solid 12px white;
+  border: solid 6px white;
   border-radius: 50%;
   text-align: center;
 }
 .figure-x::after, .figure-x::before{
   content: "";
   width: 70px;
-  height: 12px;
+  height: 6px;
   background-color: white;
   display: block;
   border-radius: 6px;

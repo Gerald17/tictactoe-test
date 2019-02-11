@@ -16,10 +16,30 @@ class App extends Component {
         [0,0,0]
       ],
       playerOneScore: 0,
-      playerTwoScore: 0
+      playerTwoScore: 0,
+      showHelp: false,
+      disable: false
     }    
   }
    
+    // disable all
+    disableAll = () => {
+      const disable = document.getElementsByClassName("grid-item");
+      if(this.state.disable){    
+        for (let i = 0; i < disable.length; i++) {
+          disable[i].classList.add("disable");
+        }
+      }
+      return
+    }
+
+    //show instructions
+    showHelp = () => {
+      this.setState({
+        showHelp: !this.state.showHelp
+      })
+    }
+
     // remove figures
     removeFigures = (figures, resetGame, disable) => {
       while (disable.length) {
@@ -28,10 +48,12 @@ class App extends Component {
       while (figures.length) {
         figures[0].setAttribute("class", "");
       }
+      console.log("testing")
       this.setState({
         playerOneTurn: true,
         gameMoves: resetGame,
-        isWinner: false
+        isWinner: false,
+        disable: false
       })        
     }
 
@@ -111,7 +133,8 @@ class App extends Component {
         gameMoves: newMove,
         isWinner: isWinner,
         playerOneScore: playerOneTurn && isWinner ? this.state.playerOneScore + 1 : this.state.playerOneScore,
-        playerTwoScore: !playerOneTurn  && isWinner ? this.state.playerTwoScore + 1 : this.state.playerTwoScore
+        playerTwoScore: !playerOneTurn  && isWinner ? this.state.playerTwoScore + 1 : this.state.playerTwoScore,
+        disable: isWinner ? true : false
       });
     }
 
@@ -140,9 +163,7 @@ class App extends Component {
     render() {
     const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
       if(isWinner){
-        setInterval(() => {
-          this.restarGame()
-        }, 3000) 
+        this.disableAll()
       }
     return (
       <React.Fragment>
@@ -162,7 +183,7 @@ class App extends Component {
 
           {/* players info */}
           
-          { isWinner ? <h1 className="winner-message">YOU WIN</h1> : null }
+          { isWinner ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
           <div className="score-board"> 
             <PlayerInfo
               figure="figure-o"
