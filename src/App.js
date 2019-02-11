@@ -48,7 +48,6 @@ class App extends Component {
       while (figures.length) {
         figures[0].setAttribute("class", "");
       }
-      console.log("testing")
       this.setState({
         playerOneTurn: true,
         gameMoves: resetGame,
