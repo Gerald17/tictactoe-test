@@ -20,16 +20,31 @@ class App extends Component {
     }    
   }
    
+    // remove figures
+    removeFigures = (figures, resetGame, disable) => {
+      while (disable.length) {
+        disable[0].classList.remove("disable");
+      }
+      while (figures.length) {
+        figures[0].setAttribute("class", "");
+      }
+      this.setState({
+        playerOneTurn: true,
+        gameMoves: resetGame,
+        isWinner: false
+      })        
+    }
+
     // restar the current game
     restarGame = () => {      
       const resetGame = [
         [0,0,0],
         [0,0,0],
         [0,0,0]
-      ];
-      this.setState({
-        gameMoves: resetGame
-      })
+      ];      
+      const figures = document.getElementsByClassName("shape");
+      const disable = document.getElementsByClassName("disable");
+      this.removeFigures(figures, resetGame, disable);       
     }
 
     //sum the selected cells -if sum is equal 3 player one wins -if sum === 6 player 2 wins
@@ -83,7 +98,7 @@ class App extends Component {
       //assign the 'X' or 'O' on the clicked cell
       let figure = playerOneTurn === true ? 'figure-o' : 'figure-x';
       event.target.className = 'grid-item disable';
-      event.target.children[0].className = `${figure} animated flash`;
+      event.target.children[0].className = `shape ${figure} animated flash`;
 
       //update the gameboard move
       let newMove = JSON.parse(JSON.stringify(this.state.gameMoves));
@@ -124,6 +139,11 @@ class App extends Component {
 
     render() {
     const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
+      if(isWinner){
+        setInterval(() => {
+          this.restarGame()
+        }, 3000) 
+      }
     return (
       <React.Fragment>
         <div className="overlay"></div>
