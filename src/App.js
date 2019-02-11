@@ -145,11 +145,11 @@ class App extends Component {
       this.setState({
         playerOneTurn: !playerOneTurn,
         gameMoves: newMove,
-        isWinner: isWinner,
+        isWinner: isWinner && !isDraw,
         playerOneScore: playerOneTurn && isWinner ? this.state.playerOneScore + 1 : this.state.playerOneScore,
         playerTwoScore: !playerOneTurn  && isWinner ? this.state.playerTwoScore + 1 : this.state.playerTwoScore,
         disable: isWinner ? true : false,
-        isDraw: isDraw
+        isDraw: isDraw && !isWinner 
       });
     }
 
@@ -195,8 +195,8 @@ class App extends Component {
         <div className="container">
           { isDraw || isWinner ? 
           <div className="win-draw-message">          
-            { isDraw  && !isWinner ? <h1 className="winner-message"> DRAW </h1> : null}
-            { isWinner && !isDraw ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
+            { isDraw  ? <h1 className="winner-message"> DRAW </h1> : null}
+            { isWinner ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
           </div> : null
           }
           <div className="game-grid text-center">
