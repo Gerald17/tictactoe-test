@@ -19,8 +19,7 @@ class App extends Component {
       playerOneScore: 0,
       playerTwoScore: 0,
       showHelp: false,
-      disable: false,
-      isDraw: false
+      disable: false
     }    
   }
 
@@ -82,8 +81,6 @@ class App extends Component {
     // check if is a draw
     isDraw = () => {
       const figures = document.getElementsByClassName("shape");
-      
-      const ref = React.createRef();
       if(figures.length === 9 && this.state.isWinner === false){
         return true
       }
@@ -140,16 +137,14 @@ class App extends Component {
       newMove[coordx][coordy] = move;
       
       const isWinner = this.isWinner(newMove);
-      const isDraw = this.isDraw();
 
       this.setState({
         playerOneTurn: !playerOneTurn,
         gameMoves: newMove,
-        isWinner: isWinner && !isDraw,
+        isWinner: isWinner,
         playerOneScore: playerOneTurn && isWinner ? this.state.playerOneScore + 1 : this.state.playerOneScore,
         playerTwoScore: !playerOneTurn  && isWinner ? this.state.playerTwoScore + 1 : this.state.playerTwoScore,
-        disable: isWinner ? true : false,
-        isDraw: isDraw && !isWinner 
+        disable: isWinner ? true : false
       });
     }
 
@@ -176,10 +171,10 @@ class App extends Component {
     }
 
     render() {
-    const { playerOneTurn, playerOneScore, playerTwoScore, isWinner, showHelp, isDraw } = this.state;
+    const { playerOneTurn, playerOneScore, playerTwoScore, isWinner, showHelp } = this.state;
       if(isWinner){
         this.disableAll()
-      }
+      }     
     return (
       <React.Fragment>
         <div className="overlay"></div>
@@ -193,12 +188,12 @@ class App extends Component {
         
         {/* Game grid */}
         <div className="container">
-          { isDraw || isWinner ? 
-          <div className="win-draw-message">          
-            { isDraw  ? <h1 className="winner-message"> DRAW </h1> : null}
-            { isWinner ? <h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1> : null }
-          </div> : null
-          }
+        
+            
+            { this.isDraw() === true ? <div className="win-draw-message"><h1 className="winner-message"> DRAW </h1></div> : null }
+            {  isWinner ? <div className="win-draw-message"><h1 className="winner-message"> PLAYER { playerOneTurn ? "TWO" : "ONE" } WINS</h1></div> : null }
+
+
           <div className="game-grid text-center">
             { this.drawItems(this.state.boardSize) }
           </div>      
