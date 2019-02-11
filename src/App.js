@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import GridItem from './components/grid_item';
 import PlayerInfo from './components/player_info';
+import Help from './components/help';
 
 class App extends Component {  
   constructor (props) {
@@ -160,16 +161,17 @@ class App extends Component {
     }
 
     render() {
-    const { playerOneTurn, playerOneScore, playerTwoScore, isWinner } = this.state;
+    const { playerOneTurn, playerOneScore, playerTwoScore, isWinner, showHelp } = this.state;
       if(isWinner){
         this.disableAll()
       }
     return (
       <React.Fragment>
         <div className="overlay"></div>
-        <div className="help">
-          <p className="help-icon">?</p>
+        <div className="help" onClick={ this.showHelp }>
+          <p className="help-icon">{ showHelp ? 'X' : '?' }</p>
         </div>
+        { showHelp ? <Help/> : null }
 
         <h1 className="game-title text-center">TIC TAC TOE</h1>
         <div className="turn text-center">TURN: { playerOneTurn ? 'PLAYER 1 ' : 'PLAYER 2 '}</div>

@@ -42,10 +42,23 @@ body{
 }
 .help-icon{
   font-size: 25px;
-  padding: 8px 20px;
+  padding: 9px 17px;
   font-weight: bold;
   color: white;
   margin: 0px;
+}
+.help-content{
+  width: 300px;
+  background: white;
+  padding: 10px 25px 0px 0px;
+  font-size: 14px;
+  position: absolute;
+  top: 84px;
+  right: 21px;
+  border-radius: 12px;
+}
+.instructions li{
+  margin-bottom: 10px;
 }
 .game-title{
   font-size: 40px;
