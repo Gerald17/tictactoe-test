@@ -53,6 +53,7 @@ body{
   padding: 10px 25px 0px 0px;
   font-size: 14px;
   position: absolute;
+  z-index: 1;
   top: 84px;
   right: 21px;
   border-radius: 12px;
